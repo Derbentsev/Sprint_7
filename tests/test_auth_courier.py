@@ -8,9 +8,9 @@ from data.data import Data
 
 class TestAuthCourier:
 
-    def authorize_courier_success():
+    def test_authorize_courier_success(self):
         courier_data = Data.COURIER
-        url = Urls.AUTH_COURIER_URL()
+        url = Urls.AUTH_COURIER_URL
 
         payload = {
             'login': courier_data['login'],
@@ -19,13 +19,13 @@ class TestAuthCourier:
 
         response = requests.post(url, payload)
         assert response.status_code == 200
-        assert response.json() == 'id'
+        assert 'id' in response.json()
 
 
     @pytest.mark.parametrize('wrong_field', ['login', 'password'])
-    def authorize_courier_pass_wrong_field_error(wrong_field):
+    def test_authorize_courier_pass_wrong_field_error(self, wrong_field):
         courier_data = Data.COURIER
-        url = Urls.AUTH_COURIER_URL()
+        url = Urls.AUTH_COURIER_URL
 
         payload = {
             'login': courier_data['login'],
@@ -35,13 +35,13 @@ class TestAuthCourier:
         payload[wrong_field] = payload['login'] + 'test'
 
         response = requests.post(url, payload)
-        assert response.status_code == 400
+        assert response.status_code == 404
 
 
     @pytest.mark.parametrize('no_field', ['login', 'password'])
-    def authorize_courier_pass_wrong_field_error(no_field):
+    def test_authorize_courier_pass_no_field_error(self, no_field):
         courier_data = Data.COURIER
-        url = Urls.AUTH_COURIER_URL()
+        url = Urls.AUTH_COURIER_URL
 
         payload = {
             'login': courier_data['login'],
@@ -49,6 +49,22 @@ class TestAuthCourier:
         }
 
         del payload[no_field]
+
+        response = requests.post(url, payload)
+        assert response.status_code == 400
+
+
+    @pytest.mark.parametrize('empty_field', ['login', 'password'])
+    def test_authorize_courier_pass_empty_field_error(self, empty_field):
+        courier_data = Data.COURIER
+        url = Urls.AUTH_COURIER_URL
+
+        payload = {
+            'login': courier_data['login'],
+            'password': courier_data['password']
+        }
+
+        payload[empty_field] = ''
 
         response = requests.post(url, payload)
         assert response.status_code == 400

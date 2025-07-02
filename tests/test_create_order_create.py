@@ -5,7 +5,7 @@ from urls.urls import Urls
 from data.data import Data
 
 
-class TestOrderCreate:
+class TestCreateOrder:
     
     @pytest.mark.parametrize(
         'color',
@@ -16,7 +16,7 @@ class TestOrderCreate:
             []
         ]
     )
-    def create_order_success(color):
+    def create_order_success(self, color):
         payload = Data.ORDER
         payload['color'] = color
 

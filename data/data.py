@@ -1,8 +1,8 @@
 class Data:
     COURIER = {
-        "login": "courierTest",
-        "password": "1234",
-        "firstName": "couriertest"
+        "login": "rhondamedina",
+        "password": "&pSUKy@oq0",
+        "firstName": "Chad Robinson"
     }
 
 

@@ -4,11 +4,11 @@ from faker import Faker
 class Helpers:
 
     @staticmethod
-    def create_new_courer_data(self):
+    def create_new_courer_data():
         faker = Faker()
-        login = faker.user_name
-        password = faker.password
-        first_name = faker.name
+        login = faker.user_name()
+        password = faker.password()
+        first_name = faker.first_name()
 
         courier_data = {
             "login": login,
