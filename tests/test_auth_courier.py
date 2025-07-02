@@ -2,11 +2,11 @@ import requests
 import pytest
 
 from helpers.helpers import Helpers
-from data.urls import Urls
+from urls.urls import Urls
 from data.data import Data
 
 
-class TestCourier:
+class TestAuthCourier:
 
     def authorize_courier_success():
         courier_data = Data.COURIER

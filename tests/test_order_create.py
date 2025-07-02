@@ -1,11 +1,11 @@
 import requests
 import pytest
 
-from data.urls import Urls
+from urls.urls import Urls
 from data.data import Data
 
 
-class TestOrder:
+class TestOrderCreate:
     
     @pytest.mark.parametrize(
         'color',

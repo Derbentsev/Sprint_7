@@ -1,12 +1,10 @@
-import random
-import string
 from faker import Faker
 
 
 class Helpers:
-    
+
     @staticmethod
-    def create_login_password(self):
+    def create_new_courer_data(self):
         faker = Faker()
         login = faker.user_name
         password = faker.password

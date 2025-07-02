@@ -2,14 +2,14 @@ import requests
 import pytest
 
 from helpers.helpers import Helpers
-from data.urls import Urls
+from urls.urls import Urls
 from data.data import Data
 
 
 class TestCourier:
-    
+
     def test_create_courier_success():
-        payload = Helpers.create_login_password()
+        payload = Helpers.create_new_courer_data()
         url = Urls.CREATE_COURIER_URL()
 
         response = requests.post(url, data=payload)
@@ -18,7 +18,7 @@ class TestCourier:
 
 
     def test_create_identical_courier_unsuccess():
-        payload = Helpers.create_login_password()
+        payload = Helpers.create_new_courer_data()
         url = Urls.CREATE_COURIER_URL()
 
         response = requests.post(url, data=payload)
@@ -31,7 +31,7 @@ class TestCourier:
 
     @pytest.mark.parametrize('empty_field', ['login', 'password', 'firstName'])
     def test_create_courier_with_no_required_fild_unsuccess(empty_field):
-        payload = Helpers.create_login_password()
+        payload = Helpers.create_new_courer_data()
         url = Urls.CREATE_COURIER_URL()
 
         del payload[empty_field]
