@@ -1,11 +1,21 @@
 import requests
 import pytest
 
-from urls.urls import Urls
-from data.data import Data
+from data.urls import Urls
 
 
 class TestOrderList:
     
-    def get_orsers_list_success(self):
-        1==1
+    @pytest.mark.parametrize('params', 
+    [
+        {'limit': 10, 'page': 0},
+        {'nearestStation': ['1'], 'limit': 10, 'page': 0},
+        {'courierId': 1, 'limit': 10, 'page': 0}
+    ])
+    def test_get_orsers_list_success(self, params):
+        url = Urls.GET_ORDER_LIST_URL
+
+        response = requests.get(url, params=params)
+        tt = response.json()
+        assert response.status_code == 200
+        assert 'orders' in response.json()

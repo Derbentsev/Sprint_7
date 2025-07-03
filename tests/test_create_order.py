@@ -1,7 +1,7 @@
 import requests
 import pytest
 
-from urls.urls import Urls
+from data.urls import Urls
 from data.data import Data
 
 
@@ -16,7 +16,7 @@ class TestCreateOrder:
             []
         ]
     )
-    def create_order_success(self, color):
+    def test_create_order_success(self, color):
         payload = Data.ORDER
         payload['color'] = color
 
@@ -24,4 +24,4 @@ class TestCreateOrder:
 
         response = requests.post(url, data=payload)
         assert response.status_code == 201
-        assert response.json() == 'track'
+        assert 'track' in response.json()
