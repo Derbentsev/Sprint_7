@@ -7,7 +7,7 @@ from data.urls import Urls
 class Helpers:
 
     @staticmethod
-    def create_new_courer_data():
+    def create_new_courier_data():
         faker = Faker()
         login = faker.user_name()
         password = faker.password()
@@ -25,7 +25,7 @@ class Helpers:
     @staticmethod
     def create_order(payload):
         url = Urls.CREATE_ORDER_URL
-        response = requests.post(url, payload)
+        response = requests.post(url, json=payload)
         return response
 
 
@@ -37,7 +37,12 @@ class Helpers:
 
 
     @staticmethod
-    def authorize_courier(payload):
-        url = Urls.AUTH_COURIER_URL   
-        response = requests.post(url, payload)
+    def authorize_courier(courier_data):
+        url = Urls.AUTH_COURIER_URL
+        #payload = {
+            #"login": courier_data['login'],
+            #"password": courier_data['password']
+        #}
+
+        response = requests.post(url, courier_data)
         return response

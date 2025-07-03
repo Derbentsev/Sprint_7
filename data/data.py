@@ -16,6 +16,9 @@ class Data:
         "deliveryDate": "2020-06-06",
         "comment": "Saske, come back to Konoha",
         "color": [
-            "BLACK"
+            "BLACK",
+            'GREY'
         ]
     }
+
+    COURIER_ID_EXISTS = '563703'

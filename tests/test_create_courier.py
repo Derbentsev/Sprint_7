@@ -1,15 +1,13 @@
-import requests
 import pytest
 
 from helpers.helpers import Helpers
-from data.urls import Urls
 from data.responses import Responses
 
 
 class TestCreateCourier:
 
     def test_create_courier_success(self):
-        payload = Helpers.create_new_courer_data()
+        payload = Helpers.create_new_courier_data()
 
         response = Helpers.create_courier(payload)
         assert response.status_code == 201
@@ -17,7 +15,7 @@ class TestCreateCourier:
 
 
     def test_create_courier_identical_id_error(self):
-        payload = Helpers.create_new_courer_data()
+        payload = Helpers.create_new_courier_data()
         response_sample = Responses.CREATE_COURIER_IDENTICAL_ID
 
         response = Helpers.create_courier(payload)
@@ -25,16 +23,16 @@ class TestCreateCourier:
         
         response = Helpers.create_courier(payload)
         assert response.status_code == response_sample['code']
-        assert response.json() == response_sample['message']
+        assert response.json()['message'] == response_sample['message']
 
 
     @pytest.mark.parametrize('empty_field', ['login', 'password'])
     def test_create_courier_with_no_fild_error(self, empty_field):
-        payload = Helpers.create_new_courer_data()
+        payload = Helpers.create_new_courier_data()
         response_sample = Responses.CREATE_COURIER_NO_FIELD
 
         del payload[empty_field]
 
         response = Helpers.create_courier(payload)
         assert response.status_code == response_sample['code']
-        assert response.json() == response_sample['message']
+        assert response.json()['message'] == response_sample['message']

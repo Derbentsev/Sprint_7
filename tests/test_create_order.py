@@ -1,7 +1,5 @@
-import requests
 import pytest
 
-from data.urls import Urls
 from data.data import Data
 from helpers.helpers import Helpers
 
@@ -14,7 +12,7 @@ class TestCreateOrder:
             ['BLACK', 'GREY'],
             ['BLACK'],
             ['GREY'],
-            []
+            ['']
         ]
     )
     def test_create_order_success(self, color):

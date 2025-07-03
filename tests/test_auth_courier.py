@@ -8,7 +8,7 @@ from helpers.helpers import Helpers
 class TestAuthCourier:
 
     def test_authorize_courier_success(self):
-        payload = Helpers.create_new_courer_data()
+        payload = Helpers.create_new_courier_data()
         response = Helpers.create_courier(payload)
         assert response.status_code == 201
     
@@ -35,7 +35,7 @@ class TestAuthCourier:
 
         response = Helpers.authorize_courier(payload)
         assert response.status_code == response_sample['code']
-        assert response.json() == response_sample['message']
+        assert response.json()['message'] == response_sample['message']
 
 
     @pytest.mark.parametrize('no_field', ['login', 'password'])
@@ -51,7 +51,7 @@ class TestAuthCourier:
 
         response = Helpers.authorize_courier(payload)
         assert response.status_code == response_sample['code']
-        assert response.json() == response_sample['message']
+        assert response.json()['message'] == response_sample['message']
 
 
     @pytest.mark.parametrize('empty_field', ['login', 'password'])
@@ -67,4 +67,4 @@ class TestAuthCourier:
 
         response = Helpers.authorize_courier(payload)
         assert response.status_code == response_sample['code']
-        assert response.json() == response_sample['message']
+        assert response.json()['message'] == response_sample['message']

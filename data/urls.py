@@ -4,7 +4,7 @@ class Urls:
     AUTH_COURIER_URL = f'{MAIN_URL}/courier/login'
     CREATE_ORDER_URL = f'{MAIN_URL}/orders'
     GET_ORDER_LIST_URL = f'{MAIN_URL}/orders'
-    DEL_COURIER_URL = f'{MAIN_URL}/courier/'
+    DEL_COURIER_URL = f'{MAIN_URL}/courier'
     ACCEPT_ORDER_URL = f'{MAIN_URL}/orders/accept/1'
     GET_ORDER_URL = f'{MAIN_URL}/orders/track'
 
@@ -15,5 +15,5 @@ class Urls:
 
 
     @staticmethod
-    def get_accept_order_url(courier_id):
-        return f'{Urls.ACCEPT_ORDER_URL}/?courierId={courier_id}'
+    def get_accept_order_url(courier_id, order_id):
+        return f'{Urls.ACCEPT_ORDER_URL}?{order_id}&courierId={courier_id}'
