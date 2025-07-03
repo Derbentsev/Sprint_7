@@ -2,11 +2,16 @@ import requests
 
 from data.urls import Urls
 from data.responses import Responses
+from helpers.helpers import Helpers
 
 
 class DelCourier:
     def test_del_courier_success(self):
-        url = Urls.DEL_COURIER_URL
+        payload = Helpers.create_new_courer_data()
+        response = Helpers.create_courier(payload)
+        assert response.status_code == 201
+    
+        url = Urls.get_del_courier_url(123)
 
         response = requests.delete(url)
         assert response.status_code == 200
@@ -23,7 +28,7 @@ class DelCourier:
 
 
     def test_del_courier_no_exists_id_success(self):
-        url = Urls.DEL_COURIER_URL
+        url = Urls.get_del_courier_url(1233232)
         response_sample = Responses.DEL_COURIER_NO_EXISTS_ID
 
         response = requests.delete(url)

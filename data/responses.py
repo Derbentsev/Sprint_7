@@ -11,8 +11,10 @@ class Responses:
     CREATE_COURIER_NO_FIELD = {'code': 400, 'message': 'Недостаточно данных для создания учетной записи'}
 
     ACCEPT_ORDER_SUCCESS = {'ok': 'true'}
-    ACCEPT_ORDER_NO_ID = {'code': 400, 'message': 'Недостаточно данных для поиска'}
-    ACCEPT_ORDER_WRONG_ID = {'code': 404, 'message': 'Курьера с таким id не существует'}
+    ACCEPT_ORDER_NO_ID_ORDER = {'code': 400, 'message': 'Недостаточно данных для поиска'}
+    ACCEPT_ORDER_WRONG_ID_ORDER = {'code': 404, 'message': 'Заказа с таким id не существует'}
+    ACCEPT_ORDER_NO_ID_COURIER = {'code': 400, 'message': 'Недостаточно данных для поиска'}
+    ACCEPT_ORDER_WRONG_ID_COURIER = {'code': 404, 'message': 'Курьера с таким id не существует'}
 
     GET_ORDER_NO_ID = {'code': 400, 'message': 'Недостаточно данных для поиска'}
     GET_ORDER_WRONG_ID = {'code': 404, 'message': 'Заказ не найден'}

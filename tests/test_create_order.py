@@ -3,6 +3,7 @@ import pytest
 
 from data.urls import Urls
 from data.data import Data
+from helpers.helpers import Helpers
 
 
 class TestCreateOrder:
@@ -20,8 +21,6 @@ class TestCreateOrder:
         payload = Data.ORDER
         payload['color'] = color
 
-        url = Urls.CREATE_ORDER_URL
-
-        response = requests.post(url, data=payload)
+        response = Helpers.create_order(payload)
         assert response.status_code == 201
         assert 'track' in response.json()

@@ -16,6 +16,5 @@ class TestOrderList:
         url = Urls.GET_ORDER_LIST_URL
 
         response = requests.get(url, params=params)
-        tt = response.json()
         assert response.status_code == 200
         assert 'orders' in response.json()

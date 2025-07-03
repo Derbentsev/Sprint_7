@@ -1,4 +1,7 @@
+import requests
 from faker import Faker
+
+from data.urls import Urls
 
 
 class Helpers:
@@ -17,3 +20,24 @@ class Helpers:
         }
 
         return courier_data
+
+
+    @staticmethod
+    def create_order(payload):
+        url = Urls.CREATE_ORDER_URL
+        response = requests.post(url, payload)
+        return response
+
+
+    @staticmethod
+    def create_courier(payload):
+        url = Urls.CREATE_COURIER_URL        
+        response = requests.post(url, payload)
+        return response
+
+
+    @staticmethod
+    def authorize_courier(payload):
+        url = Urls.AUTH_COURIER_URL   
+        response = requests.post(url, payload)
+        return response
