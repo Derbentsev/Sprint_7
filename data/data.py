@@ -20,5 +20,3 @@ class Data:
             'GREY'
         ]
     }
-
-    COURIER_ID_EXISTS = '563703'

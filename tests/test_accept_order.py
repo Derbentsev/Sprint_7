@@ -12,15 +12,22 @@ class TestAcceptOrder:
             'login': Data.COURIER['login'],
             'password': Data.COURIER['password']
         }
+
         response = Helpers.authorize_courier(courier_data)
+        assert response.status_code == 200
         courier_id = response.json()['id']
 
         response = Helpers.create_order(Data.ORDER)
-        order_id = response.json()['track']
+        assert response.status_code == 201
+        order_track = response.json()['track']
 
-        url = Urls.get_accept_order_url(courier_id, order_id)
+        url = Urls.get_order_by_track_url(order_track)
+        response = requests.get(url)
+        assert response.status_code == 200
+        order_id = response.json()['order']['id']
+
+        url = Urls.get_accept_order_url(courier_id, order_id)        
         response = requests.put(url)
-
         assert response.status_code == 200
         assert response.json() == Responses.ACCEPT_ORDER_SUCCESS
 
@@ -44,8 +51,16 @@ class TestAcceptOrder:
 
 
     def test_accept_order_no_order_id_error(self):
-        #url = Urls.get_accept_order_url(13)
-        url = f'{Urls.ACCEPT_ORDER_URL}?courierId={Data.COURIER_ID_EXISTS}'
+        courier_data = {
+            'login': Data.COURIER['login'],
+            'password': Data.COURIER['password']
+        }
+
+        response = Helpers.authorize_courier(courier_data)
+        assert response.status_code == 200
+        courier_id = response.json()['id']
+    
+        url = Urls.get_accept_order_url(courier_id, order_id='')
         response = requests.put(url)
         response_sample = Responses.ACCEPT_ORDER_NO_ID_ORDER
 
@@ -54,7 +69,16 @@ class TestAcceptOrder:
 
 
     def test_accept_courier_wrong_order_id_error(self):
-        url = Urls.get_accept_order_url(Data.COURIER_ID_EXISTS, 13)
+        courier_data = {
+            'login': Data.COURIER['login'],
+            'password': Data.COURIER['password']
+        }
+
+        response = Helpers.authorize_courier(courier_data)
+        assert response.status_code == 200
+        courier_id = response.json()['id']
+    
+        url = Urls.get_accept_order_url(courier_id, 13)
         response = requests.put(url)
         response_sample = Responses.ACCEPT_ORDER_WRONG_ID_ORDER
 

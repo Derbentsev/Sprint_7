@@ -39,10 +39,5 @@ class Helpers:
     @staticmethod
     def authorize_courier(courier_data):
         url = Urls.AUTH_COURIER_URL
-        #payload = {
-            #"login": courier_data['login'],
-            #"password": courier_data['password']
-        #}
-
         response = requests.post(url, courier_data)
         return response
