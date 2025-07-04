@@ -1,4 +1,5 @@
 import requests
+import allure
 
 from data.data import Data
 from data.urls import Urls
@@ -6,12 +7,14 @@ from data.responses import Responses
 from helpers.helpers import Helpers
 
 
+@allure.parent_suite('Приянтие заказа')
 class TestAcceptOrder:
+
+    @allure.title('Успешное принятие заказа')
     def test_accept_order_success(self):
-        courier_data = {
-            'login': Data.COURIER['login'],
-            'password': Data.COURIER['password']
-        }
+        courier_data = Helpers.create_new_courier_data()
+        response = Helpers.create_courier(courier_data)
+        assert response.status_code == 201
 
         response = Helpers.authorize_courier(courier_data)
         assert response.status_code == 200
@@ -32,8 +35,9 @@ class TestAcceptOrder:
         assert response.json() == Responses.ACCEPT_ORDER_SUCCESS
 
 
+    @allure.title('Ошибка принятия заказа, если нет id курьера')
     def test_accept_order_no_courier_id_error(self):
-        url = Urls.ACCEPT_ORDER_URL
+        url = Urls.get_accept_order_url('', '1')
         response = requests.put(url)
         response_sample = Responses.ACCEPT_ORDER_NO_ID_COURIER
 
@@ -41,6 +45,7 @@ class TestAcceptOrder:
         assert response.json()['message'] == response_sample['message']
 
 
+    @allure.title('Ошибка принятия заказа, если неверный id курьера')
     def test_accept_courier_wrong_courier_id_error(self):
         url = Urls.get_accept_order_url(213, 852)
         response = requests.put(url)
@@ -50,12 +55,12 @@ class TestAcceptOrder:
         assert response.json()['message'] == response_sample['message']
 
 
+    @allure.title('Ошибка принятия заказа, если нет id заказа')
     def test_accept_order_no_order_id_error(self):
-        courier_data = {
-            'login': Data.COURIER['login'],
-            'password': Data.COURIER['password']
-        }
-
+        courier_data = Helpers.create_new_courier_data()
+        response = Helpers.create_courier(courier_data)
+        assert response.status_code == 201
+    
         response = Helpers.authorize_courier(courier_data)
         assert response.status_code == 200
         courier_id = response.json()['id']
@@ -68,12 +73,12 @@ class TestAcceptOrder:
         assert response.json()['message'] == response_sample['message']
 
 
+    @allure.title('Ошибка принятия заказа, если неверный id курьера')
     def test_accept_courier_wrong_order_id_error(self):
-        courier_data = {
-            'login': Data.COURIER['login'],
-            'password': Data.COURIER['password']
-        }
-
+        courier_data = Helpers.create_new_courier_data()
+        response = Helpers.create_courier(courier_data)
+        assert response.status_code == 201
+    
         response = Helpers.authorize_courier(courier_data)
         assert response.status_code == 200
         courier_id = response.json()['id']

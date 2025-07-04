@@ -1,4 +1,5 @@
 import requests
+import allure
 
 from data.urls import Urls
 from data.data import Data
@@ -6,7 +7,10 @@ from data.responses import Responses
 from helpers.helpers import Helpers
 
 
+@allure.parent_suite('Получение заказа')
 class TestGetOrder:
+
+    @allure.title('Успешное получение заказа')
     def test_get_order_by_id_success(self):
         url = Urls.GET_ORDER_URL
         payload = Data.ORDER
@@ -21,6 +25,8 @@ class TestGetOrder:
         assert 'order' in response.json()
 
 
+    @allure.title('Неуспешное получение заказа, '\
+                  'если не передан id заказа')
     def test_get_order_by_id_no_id_error(self):
         url = Urls.GET_ORDER_URL
         response = requests.get(url)
@@ -30,6 +36,8 @@ class TestGetOrder:
         assert response.json()['message'] == response_sample['message']
 
 
+    @allure.title('Неуспешное получение заказа, '\
+                  'если передан некорректный id заказа')
     def test_get_order_by_id_wrong_id_error(self):
         url = Urls.GET_ORDER_URL
         response = requests.get(url, params={'t': 54784378})

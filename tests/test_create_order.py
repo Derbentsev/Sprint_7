@@ -1,11 +1,14 @@
 import pytest
+import allure
 
 from data.data import Data
 from helpers.helpers import Helpers
 
 
+@allure.parent_suite('Создание заказа')
 class TestCreateOrder:
     
+    @allure.title('Успешное создание заказа')
     @pytest.mark.parametrize(
         'color',
         [

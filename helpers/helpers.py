@@ -1,4 +1,5 @@
 import requests
+import allure
 from faker import Faker
 
 from data.urls import Urls
@@ -6,7 +7,7 @@ from data.urls import Urls
 
 class Helpers:
 
-    @staticmethod
+    @allure.step('Создаем фейковые данные по курьеру')
     def create_new_courier_data():
         faker = Faker()
         login = faker.user_name()
@@ -22,22 +23,22 @@ class Helpers:
         return courier_data
 
 
-    @staticmethod
+    @allure.step('Отправляем запрос на создание заказа')
     def create_order(payload):
         url = Urls.CREATE_ORDER_URL
         response = requests.post(url, json=payload)
         return response
 
 
-    @staticmethod
+    @allure.step('Отправляем запрос на создание курьера')
     def create_courier(payload):
         url = Urls.CREATE_COURIER_URL        
-        response = requests.post(url, payload)
+        response = requests.post(url, json=payload)
         return response
 
 
-    @staticmethod
+    @allure.step('Отправляем запрос на авторизацию курьера')
     def authorize_courier(courier_data):
         url = Urls.AUTH_COURIER_URL
-        response = requests.post(url, courier_data)
+        response = requests.post(url, json=courier_data)
         return response

@@ -1,20 +1,20 @@
 import requests
+import allure
 
 from data.urls import Urls
-from data.data import Data
 from helpers.helpers import Helpers
 
 
+@allure.parent_suite('Получение списка заказов')
 class TestOrderList:
     
-    def test_get_orsers_list_success(self):
-        courier_data = {
-            'login': Data.COURIER['login'],
-            'password': Data.COURIER['password']
-        }
+    @allure.title('Успешное получение списка заказов')
+    def test_get_orders_list_success(self):
+        courier_data = Helpers.create_new_courier_data()
+        response = Helpers.create_courier(courier_data)
+        assert response.status_code == 201
 
         response = Helpers.authorize_courier(courier_data)
-        assert response.status_code == 200
         courier_id = response.json()['id']
 
         params = {
